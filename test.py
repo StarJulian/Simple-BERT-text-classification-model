@@ -52,7 +52,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model.to(device)
 
 # 准备数据集和数据加载器
-file_path = 'test_sentence_dataset.txt'  # 测试数据集的文件路径
+file_path = './datasets/test_sentence_dataset.txt'  # 测试数据集的文件路径
 batch_size = 4  # 指定批大小
 test_dataset = SentenceDataset(file_path, tokenizer)
 test_dataloader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)

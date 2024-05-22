@@ -53,11 +53,11 @@ python predict.py
 
 ```
 Simple-BERT-text-classification-model/
-├── data/
-│   ├── your_dataset.csv
-│   ├── processed_dataset.csv
-├── models/
-│   └── bert_model.pth
+├── datasets/
+│   ├── your_train_dataset.txt
+│   ├── your_testt_dataset.txt
+├── saved_models/
+│   └── your_model.pth
 ├── datasets.py
 ├── main.py
 ├── predict.py

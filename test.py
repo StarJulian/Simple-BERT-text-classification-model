@@ -45,7 +45,7 @@ tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
 model = BertForSequenceClassification.from_pretrained('bert-base-uncased', num_labels=2)
 
 # 加载保存的最佳模型
-model.load_state_dict(torch.load('best_model.pt'))
+model.load_state_dict(torch.load('./saved_model/final_model.pth'))
 
 # 将模型移动到设备上
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")

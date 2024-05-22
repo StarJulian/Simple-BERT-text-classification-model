@@ -2,8 +2,9 @@ import torch
 from torch.utils.data import DataLoader, Dataset
 from transformers import BertTokenizer, BertForSequenceClassification, AdamW
 from transformers import get_linear_schedule_with_warmup
+import os
 
-# 定义一个简单的数据集
+# 定义数据集类
 class SentenceDataset(Dataset):
     def __init__(self, texts, labels, tokenizer, max_len=512):
         self.texts = texts
@@ -34,47 +35,89 @@ class SentenceDataset(Dataset):
             'labels': torch.tensor(label, dtype=torch.long)
         }
 
-# 准备数据
-epochs_num = 10
-best_loss = float('inf')
-output_dir = './saved_model/'
+# 读取数据文件的函数
+def read_dataset(file_path):
+    texts, labels = [], []
+    with open(file_path, 'r', encoding='utf-8') as f:
+        for line in f:
+            text, label = line.strip().split('\t')  # 假设数据是制表符分隔
+            texts.append(text)
+            labels.append(int(label))  # 将标签转换为整数
+    return texts, labels
 
-texts = ["This is a positive statement.", "This is a negative statement."]
-labels = [1, 0]  # 假设1为肯定句，0为否定句
+# 准备数据文件路径
+train_file_path = 'train_sentence_dataset.txt'
+val_file_path = 'val_sentence_dataset.txt'
+
+# 读取训练数据和验证数据
+train_texts, train_labels = read_dataset(train_file_path)
+val_texts, val_labels = read_dataset(val_file_path)
 
 # 加载BERT分词器和模型
 tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
 model = BertForSequenceClassification.from_pretrained('bert-base-uncased', num_labels=2)
 
-dataset = SentenceDataset(texts, labels, tokenizer)
+# 创建数据集实例
+train_dataset = SentenceDataset(train_texts, train_labels, tokenizer)
+val_dataset = SentenceDataset(val_texts, val_labels, tokenizer)
 
 # 准备数据加载器
-dataloader = DataLoader(dataset, batch_size=2)
+train_dataloader = DataLoader(train_dataset, batch_size=2)
+val_dataloader = DataLoader(val_dataset, batch_size=2)
 
-# 定义优化器和损失函数
+# 定义优化器、调度器和损失函数
 optimizer = AdamW(model.parameters(), lr=2e-5)
-num_training_steps = len(dataloader) *  epochs_num # 假设我们训练3个epoch
+epochs_num = 3  # 训练的epoch数量
+num_training_steps = len(train_dataloader) * epochs_num
 scheduler = get_linear_schedule_with_warmup(optimizer, num_warmup_steps=0, num_training_steps=num_training_steps)
 loss_fn = torch.nn.CrossEntropyLoss()
 
-# 将模型和分词器移动到设备上
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-model.to(device)
+# 检查输出目录是否存在
+output_dir = './saved_model/'
+if not os.path.exists(output_dir):
+    os.makedirs(output_dir)
+    print(f"目录 {output_dir} 已创建。")
+else:
+    print(f"目录 {output_dir} 已存在。")
 
+# 初始化最佳损失为正无穷
+best_loss = float('inf')
 
-
+# 训练模型
 model.train()
-for epoch in range(3):  # 简单的3个epoch示例
-    for batch in dataloader:
+for epoch in range(epochs_num):
+    epoch_loss = 0
+    for batch in train_dataloader:
         batch = {k: v.to(device) for k, v in batch.items() if k != 'text'}
-        outputs = model(input_ids=batch['input_ids'], attention_mask=batch['attention_mask'], labels=batch['labels'])
-        loss = outputs.loss
+        outputs = model(**batch)
+        loss = loss_fn(outputs.logits, batch['labels'])
         loss.backward()
-
         optimizer.step()
-        scheduler.step()  # 这个调用通常也是必要的，特别是当你使用学习率调度器时
+        scheduler.step()
         optimizer.zero_grad()
+        epoch_loss += loss.item()
 
-        print(f"Epoch: {epoch}, Loss: {loss.item()}")
+    # 进行验证
+    model.eval()
+    epoch_val_loss = 0
+    with torch.no_grad():
+        for batch in val_dataloader:
+            batch = {k: v.to(device) for k, v in batch.items() if k != 'text'}
+            outputs = model(**batch)
+            val_loss = loss_fn(outputs.logits, batch['labels'])
+            epoch_val_loss += val_loss.item()
 
-print("Training complete.")
+    print(f"Epoch {epoch + 1}/{epochs_num}, Train Loss: {epoch_loss / len(train_dataloader)}, "
+          f"Validation Loss: {epoch_val_loss / len(val_dataloader)}")
+
+    # 检查是否是最佳模型
+    if epoch_val_loss < best_loss:
+        best_loss = epoch_val_loss
+        best_model_path = os.path.join(output_dir, 'best_model_epoch_{}.pth'.format(epoch + 1))
+        torch.save(model.state_dict(), best_model_path)
+        print(f"找到最佳模型，验证损失为 {best_loss:.4f}，在Epoch {epoch + 1}，模型已保存。")
+
+# 保存最终模型
+final_model_path = os.path.join(output_dir, 'final_model.pth')
+torch.save(model.state_dict(), final_model_path)
+print("Training complete. Final model has been saved to", final_model_path)

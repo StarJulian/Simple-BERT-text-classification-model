@@ -1,0 +1,104 @@
+She is teaching a class on photography.	1
+He is leading a tour through the museum.	1
+The runners are participating in a race.	1
+They are skydiving for the first time.	1
+She is designing a logo for a company.	1
+He is playing the guitar at an open mic.	1
+The actors are rehearsing their lines.	1
+She is writing a letter to her pen pal.	1
+He is building a robot from a kit.	1
+The hikers are setting up camp for the night.	1
+She is not teaching a class on photography.	0
+He is not leading a tour through the museum.	0
+The runners are not participating in a race.	0
+They are not skydiving for the first time.	0
+She is not designing a logo for a company.	0
+He is not playing the guitar at an open mic.	0
+The actors are not rehearsing their lines.	0
+She is not writing a letter to her pen pal.	0
+He is not building a robot from a kit.	0
+The hikers are not setting up camp for the night.	0
+She is attending a workshop on climate change.	1
+He is hosting a webinar about remote work.	1
+The team is playing a soccer match on the field.	1
+They are discussing the budget in the meeting.	1
+She is reading a novel by her favorite author.	1
+He is fixing the plumbing in the bathroom.	1
+The volunteers are planting trees in the park.	1
+They are celebrating their anniversary at dinner.	1
+She is applying for a new job online.	1
+She is not attending a workshop on climate change.	0
+He is not hosting a webinar about remote work.	0
+The team is not playing a soccer match on the field.	0
+They are not discussing the budget in the meeting.	0
+She is not reading a novel by her favorite author.	0
+He is not fixing the plumbing in the bathroom.	0
+The volunteers are not planting trees in the park.	0
+They are not celebrating their anniversary at dinner.	0
+She is not applying for a new job online.	0
+She is presenting her research at a conference.	1
+He is cooking a meal for his family.	1
+The band is playing a live show in the city.	1
+They are streaming a movie for a virtual party.	1
+She is writing a review of the new restaurant.	1
+He is painting a mural on the side of a building.	1
+The students are solving math problems in class.	1
+They are exploring a new city as tourists.	1
+She is not presenting her research at a conference.	0
+He is not cooking a meal for his family.	0
+The band is not playing a live show in the city.	0
+They are not streaming a movie for a virtual party.	0
+She is not writing a review of the new restaurant.	0
+He is not painting a mural on the side of a building.	0
+The students are not solving math problems in class.	0
+They are not exploring a new city as tourists.	0
+She is leading a dance class at the community center.	1
+He is testing a new recipe in the kitchen.	1
+The group is going on a hiking trip in the mountains.	1
+They are learning a new dance routine for a performance.	1
+She is judging a baking competition.	1
+He is composing music on his computer.	1
+The athletes are training for the championship.	1
+They are building a new house from scratch.	1
+She is not leading a dance class at the community center.	0
+He is not testing a new recipe in the kitchen.	0
+The group is not going on a hiking trip in the mountains.	0
+They are not learning a new dance routine for a performance.	0
+She is not judging a baking competition.	0
+He is not composing music on his computer.	0
+The athletes are not training for the championship.	0
+They are not building a new house from scratch.	0
+She is tutoring students online after school.	1
+He is compiling data for his research project.	1
+The musicians are recording an album in the studio.	1
+They are planning a surprise party for a friend.	1
+She is knitting a sweater as a gift for her mother.	1
+He is studying for his final exams at the library.	1
+The dancers are preparing for their recital.	1
+They are designing a new logo for their startup.	1
+She is not tutoring students online after school.	0
+He is not compiling data for his research project.	0
+The musicians are not recording an album in the studio.	0
+They are not planning a surprise party for a friend.	0
+She is not knitting a sweater as a gift for her mother.	0
+He is not studying for his final exams at the library.	0
+The dancers are not preparing for their recital.	0
+They are not designing a new logo for their startup.	0
+The driver is stylishly wearing glasses while navigating the streets.	1
+A pair of glasses perches on the driver's nose in the photo.	1
+The driver's vision is enhanced by the glasses they are wearing.	1
+The image captures the driver with glasses, focused on the road.	1
+The driver is seen with glasses that reflect the sunlight.	1
+The driver is flaunting fashionable glasses in the picture.	1
+Glasses frame the driver's eyes, indicating a clear vision.	1
+The driver is equipped with protective glasses for driving.	1
+The driver's glasses are noticeable in the clear image.	1
+The driver does not have glasses in the provided photo.	0
+There is no indication of glasses on the driver in the picture.	0
+The driver's eyes are uncovered, with no glasses in sight.	0
+The image shows the driver without any glasses.	0
+The driver appears to be driving without glasses on.	0
+The driver is not using glasses in the captured image.	0
+No glasses are visible on the driver's face in the snapshot.	0
+The driver is seen without glasses, eyes directly visible.	0
+The photograph shows the driver without the aid of glasses.	0
